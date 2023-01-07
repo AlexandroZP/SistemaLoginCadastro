@@ -1,6 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
 
-
+#Tela de login
 class TelaLogin:
     def __init__(self):
         # Layout
@@ -16,6 +16,14 @@ class TelaLogin:
         self.janela = sg.Window('Tela de Login', layout)
 
 
+    def showPass(self):
+        self.janela['senha'].update(password_char="")
+
+
+    def hidePass(self):
+        self.janela['senha'].update(password_char="*")
+
+#Tela e cadastro
 class TelaCadastro:
     def __init__(self):
         # Layout
@@ -32,5 +40,17 @@ class TelaCadastro:
         ]
         # Janela
         self.janela = sg.Window('Tela de Cadastro', layout)
+
+
+    def showPass(self):
+        self.janela['senha'].update(password_char="")
+        self.janela['r_senha'].update(password_char="")
+
+
+    def hidePass(self):
+        self.janela['senha'].update(password_char="*")
+        self.janela['r_senha'].update(password_char="*")
+
+        
         
 
