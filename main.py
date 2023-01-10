@@ -1,8 +1,9 @@
-import Telas as tl
+import Telas.TelasIniciais as tli
+import Telas.TelasDeUsuario as tlu
 from PySimpleGUI import PySimpleGUI as sg
 
 
-tela = tl.TelaLogin()
+tela = tlu.TelaDeAdmin()
 
 while True:
     # Extrair dados
