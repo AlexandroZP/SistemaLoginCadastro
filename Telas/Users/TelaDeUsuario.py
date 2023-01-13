@@ -1,5 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
 
+
 class TelaDeUsuario:
     def __init__(self):
         self.className = self.__class__.__name__
@@ -16,19 +17,21 @@ class TelaDeUsuario:
             ['000004', 'Exemplo4', 'exemplo4@email.com'],
             ['000005', 'Exemplo5', 'exemplo5@email.com']
         ]
-        self._layout = [
+        self.__layout = [
             [sg.Push(), sg.Button('Logoff', key='-BTN_LOGOFF-', button_color='red', enable_events=True)],
             [sg.Frame(self.className, self._col_layout, pad=(0,0), element_justification='left',key='-DATE_FRAME-')],
             [sg.HorizontalSeparator()],
             [sg.Text('Usuários Cadastrados')],
             [sg.Table(values=self._users, 
             headings=['#ID', 'Nome', 'Email'], auto_size_columns=True, display_row_numbers=True,
-            justification='center', num_rows=len(self._users)+1,row_height=30)],
+            justification='center', num_rows=len(self._users)+1,row_height=30, select_mode='extended',key='-USERS_LIST-')],
             [sg.Checkbox('Deletar Usuários', key='-CHB_DELETAR-',disabled=False, enable_events=True, change_submits=True), sg.Button('Deletar',key='-BTN_DELETAR-', pad=(0,0), disabled=True, change_submits=True,enable_events=True)]
         ] 
 
-    def deslogar(self):
-        sg.popup('Deslogado')
+    @property
+    def layout(self):
+        return self.__layout
+
     
     def editar(self, janela):
         janela['-USER_DATE_ID-'].update(disabled=False)

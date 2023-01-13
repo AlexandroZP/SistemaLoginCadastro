@@ -1,19 +1,24 @@
 from PySimpleGUI import PySimpleGUI as sg
 from Telas.Users.TelaDeUsuario import TelaDeUsuario
+from Telas import TelasIniciais as tli
 
 class Cliente(TelaDeUsuario):
     def __init__(self):
         super().__init__()
-        self.janela = sg.Window('Cliente', self._layout, auto_size_text=False, default_element_size=(20,1),finalize=True)
+        self.janela = sg.Window('Cliente', self.layout, auto_size_text=False, default_element_size=(20,1),finalize=True)
         while True:
-            self.janela['-CHB_DELETAR-'].update(disabled=True)
+            if self.janela == Cliente:
+                self.janela['-CHB_DELETAR-'].update(disabled=True)
             events, values = self.janela.read()
             match(events):
                 case None:
                     break
                 case '-BTN_LOGOFF-':
-                    Cliente.deslogar(self)
+                    self.janela.close()
+                    self.janela = tli.Login()
                 case '-BTN_EDIT-':
                     Cliente.editar(self, self.janela)
                 case '-BTN_SAVE-':
-                    Cliente.save(self, self.janela)   
+                    Cliente.save(self, self.janela)
+        
+           

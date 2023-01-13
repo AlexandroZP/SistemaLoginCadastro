@@ -17,12 +17,23 @@ class Login(TelasIniciais):
         self.layout = [
             [sg.Text('Usuário:'), sg.Input(key='usuario', size=(20, 1))],
             [sg.Text('Senha:'), sg.Input(key='senha', password_char='*', size=(20, 3),change_submits=True), 
-            sg.Checkbox('Mostrar senha', key='showP', enable_events=True)],
+            sg.Checkbox('Mostrar senha', key='-SHOW_PASS-', enable_events=True)],
             [sg.Checkbox('Salvar o login ?')],
             [sg.Button('Entrar')]
         ]
 
         self.janela = sg.Window('Tela de Login', self.layout)
+
+        while True:
+            events, values = self.janela.read()
+            match(events):
+                case None:
+                    break
+            
+            if values['-SHOW_PASS-']:
+                Login.showPass(self)
+            else:
+                Login.hidePass(self)
 
 
 
