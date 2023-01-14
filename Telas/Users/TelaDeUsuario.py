@@ -1,5 +1,5 @@
 from PySimpleGUI import PySimpleGUI as sg
-
+from Telas import TelasIniciais as tli
 
 class TelaDeUsuario:
     def __init__(self):
@@ -32,7 +32,12 @@ class TelaDeUsuario:
     def layout(self):
         return self.__layout
 
-    
+
+    def deslogar(self, janela):
+        janela.close()
+        janela = tli.Login()
+
+
     def editar(self, janela):
         janela['-USER_DATE_ID-'].update(disabled=False)
         janela['-USER_DATE_NAME-'].update(disabled=False)

@@ -1,6 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
 from Telas.Users.TelaDeUsuario import TelaDeUsuario
-from Telas import TelasIniciais as tli
+
 
 
    
@@ -17,8 +17,7 @@ class Administrador(TelaDeUsuario):
                     print('Encerrando...')
                     break
                 case '-BTN_LOGOFF-':
-                    self.janela.close()
-                    self.janela = tli.Login()
+                    Administrador.deslogar(self, self.janela)
                     break
                 case '-BTN_EDIT-':
                     Administrador.editar(self, self.janela)

@@ -14,8 +14,7 @@ class Cliente(TelaDeUsuario):
                 case None:
                     break
                 case '-BTN_LOGOFF-':
-                    self.janela.close()
-                    self.janela = tli.Login()
+                    Cliente.deslogar(self, self.janela)
                 case '-BTN_EDIT-':
                     Cliente.editar(self, self.janela)
                 case '-BTN_SAVE-':
