@@ -1,5 +1,5 @@
 from PySimpleGUI import PySimpleGUI as sg
-from Telas import TelasIniciais as tli
+from Telas.Init.TelasIniciais import Login
 
 class TelaDeUsuario:
     def __init__(self):
@@ -35,7 +35,7 @@ class TelaDeUsuario:
 
     def deslogar(self, janela):
         janela.close()
-        janela = tli.Login()
+        janela = Login()
 
 
     def editar(self, janela):

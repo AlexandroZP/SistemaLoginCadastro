@@ -1,6 +1,5 @@
 from PySimpleGUI import PySimpleGUI as sg
 from Telas.Users.TelaDeUsuario import TelaDeUsuario
-from Telas import TelasIniciais as tli
 
 class Cliente(TelaDeUsuario):
     def __init__(self):
