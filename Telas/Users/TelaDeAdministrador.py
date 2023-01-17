@@ -17,6 +17,7 @@ class Administrador(TelaDeUsuario):
                     print('Encerrando...')
                     break
                 case '-BTN_LOGOFF-':
+                    self.janela.close()
                     Administrador.deslogar(self, self.janela)
                     break
                 case '-BTN_EDIT-':

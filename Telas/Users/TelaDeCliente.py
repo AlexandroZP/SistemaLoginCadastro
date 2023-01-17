@@ -14,6 +14,7 @@ class Cliente(TelaDeUsuario):
                     break
                 case '-BTN_LOGOFF-':
                     Cliente.deslogar(self, self.janela)
+                    break
                 case '-BTN_EDIT-':
                     Cliente.editar(self, self.janela)
                 case '-BTN_SAVE-':

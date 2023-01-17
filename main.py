@@ -3,5 +3,6 @@ from Telas.Users.TelaDeAdministrador import Administrador
 from Telas.Users.TelaDeCliente import Cliente
 
 
-tela = Login()
+tela = Cliente()
+
 

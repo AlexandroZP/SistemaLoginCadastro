@@ -1,7 +1,9 @@
 from PySimpleGUI import PySimpleGUI as sg
+import services.checking as chk
+from tempBD import save
+from Telas.Users.toUser import toAdmin, toCliente
 
 class TelasIniciais:
-
 
     def windowTrasition(self, janela, nome):
         if nome == 'Login':
@@ -32,14 +34,14 @@ class Login(TelasIniciais):
             [sg.Button('Entrar', key='-LOGIN_BUTTON-')]
         ]
 
-        self.layout = [
+        self.__layout = [
             [sg.Frame('LOGIN', self._frame_layout, pad=(0,0), element_justification='left')],           
             [sg.VerticalSeparator()],
             [sg.Text('Ainda não é cadastrado ?')],
             [sg.Button('Cadastrar !', key='-REGISTER_WINDOW-')]
         ]
 
-        self.janela = sg.Window('Tela de Login', self.layout)
+        self.janela = sg.Window('Tela de Login', self.__layout)
         while True:
             events, values = self.janela.read()
             match(events):
@@ -49,7 +51,8 @@ class Login(TelasIniciais):
                     Login.windowTrasition(self, self.janela, self.className)
                     break
                 case '-LOGIN_BUTTON-':
-                    sg.popup('LOGADO')
+                    toCliente(self.janela)
+                    break
             
             if values['-SHOW_PASS-']:
                 Login.showPass(self,'-PASSWORD-')
@@ -72,18 +75,21 @@ class Cadastro(TelasIniciais):
             [sg.Input(key='-CONFIRM_PASS-', password_char='*', size=(40, 3),change_submits=True) ,sg.Checkbox('Mostrar', key='-SHOW_CONF_PASS-', enable_events=True)],
             [sg.Button('Cadastrar', key='-REGISTER_BUTTON-')],
         ]
-        self.layout = [
+        self.__layout = [
             [sg.Frame('CADASTRAR', self._frame_layout)],
             [sg.VerticalSeparator()],
             [sg.Text('Já é cadastrado ?')],
             [sg.Button('Fazer Login', key='-LOGIN_WINDOW-')]
         ]
 
-        self.janela = sg.Window('Tela de Cadastro', self.layout)
+        self.janela = sg.Window('Tela de Cadastro', self.__layout)
 
 
         while True:
-            events, values = self.janela.read()           
+            events, values = self.janela.read()
+
+
+
             match(events):
                 case None:
                     break
@@ -91,8 +97,24 @@ class Cadastro(TelasIniciais):
                     Cadastro.windowTrasition(self, self.janela, self.className)
                     break
                 case '-REGISTER_BUTTON-':
-                    sg.popup('CADASTRADO')
+
+                    nome = str(values['-NAME-'])
+                    email = str(values['-EMAIL-'])
+                    senha = str(values['-PASSWORD-'])
+                    conSenha = str(values['-CONFIRM_PASS-']) 
+
+                    allFilled = chk.allFilled(nome,email, senha ,conSenha)
+
+                    if allFilled == True:
+                        if chk.inBD(email) == False:
+                            if chk.validAll(email, senha, conSenha) == 'Válido':
+                                save('00001',nome ,email, senha)
+                        else:
+                            sg.popup('Email já está sendo utilizado!!')
+                    else:     
+                        sg.popup('ERROR! Preencha todos os campos')
             
+
             if values['-SHOW_PASS-']:
                 Cadastro.showPass(self, '-PASSWORD-')
             else:
