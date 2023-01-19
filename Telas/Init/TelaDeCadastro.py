@@ -1,66 +1,9 @@
 from PySimpleGUI import PySimpleGUI as sg
 import services.checking as chk
 from tempBD import save
-from Telas.Users.toUser import toAdmin, toCliente
+import Telas.Init.TelaDeCadastroBackend as tB
 
-class TelasIniciais:
-
-    def windowTrasition(self, janela, nome):
-        if nome == 'Login':
-            janela.close()
-            janela = Cadastro()
-        elif nome == 'Cadastro':
-            janela.close()
-            janela = Login()
-
-
-    def showPass(self, tag):
-        self.janela[tag].update(password_char="")
-
-
-    def hidePass(self, tag):
-        self.janela[tag].update(password_char="*")
-
-
-class Login(TelasIniciais):   
-    def __init__(self):
-        self.className = __class__.__name__
-        sg.theme('TanBlue')
-        self._frame_layout = [
-            [sg.T('Email:'),sg.Input(key='-EMAIL-',pad=(4,10),size=(20,0))],
-            [sg.T('Senha:'),sg.Input(password_char='*',key='-PASSWORD-',pad=(0,0),size=(20,0)), 
-            sg.Checkbox('Mostrar senha', key='-SHOW_PASS-', enable_events=True)],
-            [sg.Checkbox('Salvar o login ?')],
-            [sg.Button('Entrar', key='-LOGIN_BUTTON-')]
-        ]
-
-        self.__layout = [
-            [sg.Frame('LOGIN', self._frame_layout, pad=(0,0), element_justification='left')],           
-            [sg.VerticalSeparator()],
-            [sg.Text('Ainda não é cadastrado ?')],
-            [sg.Button('Cadastrar !', key='-REGISTER_WINDOW-')]
-        ]
-
-        self.janela = sg.Window('Tela de Login', self.__layout)
-        while True:
-            events, values = self.janela.read()
-            match(events):
-                case None:
-                    break
-                case '-REGISTER_WINDOW-':
-                    Login.windowTrasition(self, self.janela, self.className)
-                    break
-                case '-LOGIN_BUTTON-':
-                    toCliente(self.janela)
-                    break
-            
-            if values['-SHOW_PASS-']:
-                Login.showPass(self,'-PASSWORD-')
-            else:
-                Login.hidePass(self,'-PASSWORD-')
-
-
-class Cadastro(TelasIniciais):
+class Cadastro():
     def __init__(self):
         self.className = __class__.__name__
         sg.theme('TanBlue')
@@ -94,10 +37,9 @@ class Cadastro(TelasIniciais):
                 case None:
                     break
                 case '-LOGIN_WINDOW-':
-                    Cadastro.windowTrasition(self, self.janela, self.className)
+                    tB.toLogin(self.janela)
                     break
                 case '-REGISTER_BUTTON-':
-
                     nome = str(values['-NAME-'])
                     email = str(values['-EMAIL-'])
                     senha = str(values['-PASSWORD-'])
@@ -116,14 +58,14 @@ class Cadastro(TelasIniciais):
             
 
             if values['-SHOW_PASS-']:
-                Cadastro.showPass(self, '-PASSWORD-')
+                tB.showPass(self, '-PASSWORD-')
             else:
-                Cadastro.hidePass(self, '-PASSWORD-')
+                tB.hidePass(self, '-PASSWORD-')
             
             if values['-SHOW_CONF_PASS-']:
-                Cadastro.showPass(self, '-CONFIRM_PASS-')
+                tB.showPass(self, '-CONFIRM_PASS-')
             else:
-                Cadastro.hidePass(self, '-CONFIRM_PASS-')
+                tB.hidePass(self, '-CONFIRM_PASS-')
 
 
 

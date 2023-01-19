@@ -1,5 +1,5 @@
 from PySimpleGUI import PySimpleGUI as sg
-from Telas.Init.toInit import toLogin
+import Telas.Init.TelaDeCadastroBackend as tB
 from tempBD import bd
 
 class TelaDeUsuario:
@@ -30,7 +30,7 @@ class TelaDeUsuario:
 
     def deslogar(self, janela):
         janela.close()
-        toLogin(janela)
+        tB.toLogin(janela)
 
 
     def editar(self, janela):
