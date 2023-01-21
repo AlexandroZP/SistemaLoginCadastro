@@ -1,11 +1,16 @@
 import re
-from tempBD import bd
+from connectBD import BaseDedados
 
 
-def inBD(email):
-        for dados in bd:
-                if email in dados:
-                        return True
+def inBD(email, senha):
+        dados = BaseDedados()
+        print(len(dados.bd))
+        if len(dados.bd) > 0:
+                for dado in dados.bd:
+                        print(dado)
+                        if email == dado[1]:
+                                if senha == dado[4]:
+                                        return True
         return False
 
 

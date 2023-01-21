@@ -1,24 +1,25 @@
 from PySimpleGUI import PySimpleGUI as sg
-import Telas.Init.TelaDeCadastroBackend as tB
-from tempBD import bd
+import Telas.Init.connectCadastro as tB
+from connectBD import BaseDedados 
 
 class TelaDeUsuario:
     def __init__(self):
         self.className = self.__class__.__name__
+        baseDeDados = BaseDedados()
         sg.theme('TanBlue')
         self._col_layout = [[sg.T('#ID'),sg.Input('0000001', key='-USER_DATE_ID-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
                             [sg.T('Nome:'),sg.Input('Exemplo', key='-USER_DATE_NAME-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
                             [sg.T('Email:'),sg.Input('Exemplo1@email.com',key='-USER_DATE_EMAIL-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
                             [sg.Button('Editar Perfil', key='-BTN_EDIT-', pad=(5,10)),sg.Push(), sg.Button('Salvar', key='-BTN_SAVE-', pad=(5, 5))]
                             ]
-        self._users = bd
+        self._users = baseDeDados.bd[:4]
         self.__layout = [
             [sg.Push(), sg.Button('Logoff', key='-BTN_LOGOFF-', button_color='red', enable_events=True)],
             [sg.Frame(self.className, self._col_layout, pad=(0,0), element_justification='left',key='-DATE_FRAME-')],
             [sg.HorizontalSeparator()],
             [sg.Text('Usuários Cadastrados')],
             [sg.Table(values=self._users, 
-            headings=['#ID', 'Nome', 'Email'], auto_size_columns=True, display_row_numbers=True,
+            headings=['#ID', 'Email', 'Nome', 'Perfil'], auto_size_columns=True, display_row_numbers=True,
             justification='center', num_rows=len(self._users)+1,row_height=30, select_mode='extended',key='-USERS_LIST-')],
             [sg.Checkbox('Deletar Usuários', key='-CHB_DELETAR-',disabled=False, enable_events=True, change_submits=True), sg.Button('Deletar',key='-BTN_DELETAR-', pad=(0,0), disabled=True, change_submits=True,enable_events=True)]
         ] 

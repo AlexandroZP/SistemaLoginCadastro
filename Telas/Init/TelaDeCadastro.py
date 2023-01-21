@@ -1,7 +1,7 @@
 from PySimpleGUI import PySimpleGUI as sg
 import services.checking as chk
-from tempBD import save
-import Telas.Init.TelaDeCadastroBackend as tB
+from connectBD import BaseDedados
+import Telas.Init.connectCadastro as tB
 
 class Cadastro():
     def __init__(self):
@@ -48,24 +48,29 @@ class Cadastro():
                     allFilled = chk.allFilled(nome,email, senha ,conSenha)
 
                     if allFilled == True:
-                        if chk.inBD(email) == False:
-                            if chk.validAll(email, senha, conSenha) == 'Válido':
-                                save('00001',nome ,email, senha)
+                        if chk.validAll(email, senha, conSenha) == 'Válido':
+                            bd = BaseDedados()
+                            print(email, senha, nome,"Cliente")
+                            if chk.inBD(email, senha) == False:
+                                bd.saveBd(len(bd.bd)+1,email,  nome, 'Cliente', senha)
+                                sg.popup('Cadastrado')
+                            else:
+                                sg.popup('ERROR Usuario já existe')
                         else:
-                            sg.popup('Email já está sendo utilizado!!')
+                            sg.popup(chk.validAll(email, senha, conSenha))
                     else:     
                         sg.popup('ERROR! Preencha todos os campos')
             
 
             if values['-SHOW_PASS-']:
-                tB.showPass(self, '-PASSWORD-')
+                tB.showPass(self.janela, '-PASSWORD-')
             else:
-                tB.hidePass(self, '-PASSWORD-')
+                tB.hidePass(self.janela, '-PASSWORD-')
             
             if values['-SHOW_CONF_PASS-']:
-                tB.showPass(self, '-CONFIRM_PASS-')
+                tB.showPass(self.janela, '-CONFIRM_PASS-')
             else:
-                tB.hidePass(self, '-CONFIRM_PASS-')
+                tB.hidePass(self.janela, '-CONFIRM_PASS-')
 
 
 
