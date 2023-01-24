@@ -1,7 +1,7 @@
 from PySimpleGUI import PySimpleGUI as sg
 import services.checking as chk
 from connectBD import BaseDedados
-import Telas.Init.connectCadastro as tB
+import Telas.Init.funcsCadastro as tB
 
 class Cadastro():
     def __init__(self):
@@ -46,13 +46,11 @@ class Cadastro():
                     conSenha = str(values['-CONFIRM_PASS-']) 
 
                     allFilled = chk.allFilled(nome,email, senha ,conSenha)
-
                     if allFilled == True:
+                        bd = BaseDedados()
                         if chk.validAll(email, senha, conSenha) == 'Válido':
-                            bd = BaseDedados()
-                            print(email, senha, nome,"Cliente")
-                            if chk.inBD(email, senha) == False:
-                                bd.saveBd(len(bd.bd)+1,email,  nome, 'Cliente', senha)
+                            if chk.inBD(email, senha) == False:    
+                                bd.saveBd(len(bd.bd)+1,email,  nome, 'Administrador', senha)
                                 sg.popup('Cadastrado')
                             else:
                                 sg.popup('ERROR Usuario já existe')

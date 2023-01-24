@@ -1,5 +1,5 @@
 from PySimpleGUI import PySimpleGUI as sg
-import Telas.Init.connectCadastro as tB
+import Telas.Init.funcsCadastro as tB
 from connectBD import BaseDedados 
 
 class TelaDeUsuario:

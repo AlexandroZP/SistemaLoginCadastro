@@ -1,5 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
 from Telas.Users.TelaDeUsuario import TelaDeUsuario
+from connectBD import BaseDedados
 
 
 
@@ -24,13 +25,16 @@ class Administrador(TelaDeUsuario):
                     Administrador.editar(self, self.janela)
                 case '-BTN_SAVE-':
                     Administrador.save(self, self.janela)  
-                case '-BTN_DELETAR-':
+                case '-BTN_DELETAR-': 
                     list = self._users
+                    bancoDeDados = BaseDedados()
                     removeList = values['-USERS_LIST-'][:]
                     removeList.sort(reverse=True)
-                    for value in removeList:
-                        list.pop(value)   
+                    for index in removeList:
+                        list.pop(index)
                     self.janela['-USERS_LIST-'].update(values=list)
+                    bancoDeDados.delete(list)
+                    
  
                 
             if values['-CHB_DELETAR-'] == True:

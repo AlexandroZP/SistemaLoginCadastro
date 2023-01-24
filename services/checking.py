@@ -4,10 +4,9 @@ from connectBD import BaseDedados
 
 def inBD(email, senha):
         dados = BaseDedados()
-        print(len(dados.bd))
+        print(dados.bd)
         if len(dados.bd) > 0:
                 for dado in dados.bd:
-                        print(dado)
                         if email == dado[1]:
                                 if senha == dado[4]:
                                         return True
