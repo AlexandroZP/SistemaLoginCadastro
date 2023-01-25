@@ -1,18 +1,25 @@
 import re
-from connectBD import BaseDedados
+from services.connectBD import BaseDedados
 
 
 def inBD(email, senha):
         dados = BaseDedados()
-        print(dados.bd)
         if len(dados.bd) > 0:
                 for dado in dados.bd:
                         if email == dado[1]:
                                 if senha == dado[4]:
-                                        return True
-        return False
+                                        return dado[3]
+        return 'False'
 
 
+def searchBd(email):
+        dados = BaseDedados()
+        for dado in dados.bd:
+                if email == dado[1]:
+                        return [str(dado[0]), str(dado[2]), str(dado[1])]       
+       
+        
+        
 def allFilled(nome, email, senha, conSenha):
         if nome != '' != email:
                 if senha != '' != conSenha:

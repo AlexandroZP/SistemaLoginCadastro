@@ -1,15 +1,15 @@
 from PySimpleGUI import PySimpleGUI as sg
 import Telas.Init.funcsCadastro as tB
-from connectBD import BaseDedados 
+from services.connectBD import BaseDedados 
 
 class TelaDeUsuario:
-    def __init__(self):
+    def __init__(self, user):
         self.className = self.__class__.__name__
         baseDeDados = BaseDedados()
         sg.theme('TanBlue')
-        self._col_layout = [[sg.T('#ID'),sg.Input('0000001', key='-USER_DATE_ID-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
-                            [sg.T('Nome:'),sg.Input('Exemplo', key='-USER_DATE_NAME-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
-                            [sg.T('Email:'),sg.Input('Exemplo1@email.com',key='-USER_DATE_EMAIL-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
+        self._col_layout = [[sg.T('#ID'),sg.Input(user[0],key='-USER_DATE_ID-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
+                            [sg.T('Nome:'),sg.Input(user[1],key='-USER_DATE_NAME-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
+                            [sg.T('Email:'),sg.Input(user[2],key='-USER_DATE_EMAIL-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
                             [sg.Button('Editar Perfil', key='-BTN_EDIT-', pad=(5,10)),sg.Push(), sg.Button('Salvar', key='-BTN_SAVE-', pad=(5, 5))]
                             ]
         self._users = baseDeDados.bd[:4]
@@ -38,7 +38,8 @@ class TelaDeUsuario:
         janela['-USER_DATE_ID-'].update(disabled=False)
         janela['-USER_DATE_NAME-'].update(disabled=False)
         janela['-USER_DATE_EMAIL-'].update(disabled=False)
-    
+
+
     def save(self, janela):
         janela['-USER_DATE_ID-'].update(disabled=True)
         janela['-USER_DATE_NAME-'].update(disabled=True)

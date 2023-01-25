@@ -1,10 +1,11 @@
 from Telas.Users.TelaDeAdministrador import Administrador
 from Telas.Users.TelaDeCliente import Cliente
 
-def toAdmin(tela):
+def toAdmin(tela,user):
     tela.close()
-    tela = Administrador()
+    tela = Administrador(user)
 
-def toCliente(tela):
+
+def toCliente(tela,user):
     tela.close()
-    tela = Cliente()
+    tela = Cliente(user)

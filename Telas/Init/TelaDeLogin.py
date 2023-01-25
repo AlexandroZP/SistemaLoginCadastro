@@ -1,7 +1,7 @@
 from PySimpleGUI import PySimpleGUI as sg
 from Telas.Users.toUser import toAdmin, toCliente
 import Telas.Init.funcsLogin as tB
-from services.checking import inBD
+from services.checking import inBD, searchBd
 class Login():   
     def __init__(self):
         self.className = __class__.__name__
@@ -31,8 +31,12 @@ class Login():
                     tB.toRegis(self.janela)
                     break
                 case '-LOGIN_BUTTON-':
-                    if inBD(values['-EMAIL-'], values['-PASSWORD-']):
-                        toAdmin(self.janela)
+                    check = inBD(values['-EMAIL-'], values['-PASSWORD-']) 
+                    if check != 'False':
+                        if check == 'Admin':
+                            toAdmin(self.janela, searchBd(values['-EMAIL-']))
+                        elif check == 'Cliente':
+                            toCliente(self.janela, searchBd(values['-EMAIL-']))
                         break
                     else:
                         sg.popup('ERROR Usuario não encontrado')

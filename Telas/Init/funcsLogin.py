@@ -12,3 +12,4 @@ def showPass(janela, tag):
 
 def hidePass(janela, tag):
     janela[tag].update(password_char="*") 
+

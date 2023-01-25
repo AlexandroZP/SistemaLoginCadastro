@@ -1,0 +1,2 @@
+1;alex@email.com;Alex;Admin;12345678;
+2;alex2@email.com;Alex;Cliente;12345678;

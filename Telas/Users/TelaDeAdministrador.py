@@ -1,6 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
 from Telas.Users.TelaDeUsuario import TelaDeUsuario
-from connectBD import BaseDedados
+from services.connectBD import BaseDedados
 
 
 
@@ -8,8 +8,8 @@ from connectBD import BaseDedados
 
 
 class Administrador(TelaDeUsuario):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, user):
+        super().__init__(user)
         self.janela = sg.Window('Administrador', self.layout, auto_size_text=False, default_element_size=(20,1))
         while True:
             events, values = self.janela.read()

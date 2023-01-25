@@ -1,6 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
 import services.checking as chk
-from connectBD import BaseDedados
+from services.connectBD import BaseDedados
 import Telas.Init.funcsCadastro as tB
 
 class Cadastro():
@@ -16,7 +16,8 @@ class Cadastro():
             [sg.Input(key='-PASSWORD-', password_char='*', size=(40, 3),change_submits=True),sg.Checkbox('Mostrar', key='-SHOW_PASS-', enable_events=True)],
             [sg.Text('Digite a senha novamente:')],
             [sg.Input(key='-CONFIRM_PASS-', password_char='*', size=(40, 3),change_submits=True) ,sg.Checkbox('Mostrar', key='-SHOW_CONF_PASS-', enable_events=True)],
-            [sg.Button('Cadastrar', key='-REGISTER_BUTTON-')],
+            [sg.Text('Selecione o tipo de usuário'),sg.Combo(values=('Cliente', 'Admin'),key='-TYPE_USER-')],
+            [sg.Button('Cadastrar', key='-REGISTER_BUTTON-')]
         ]
         self.__layout = [
             [sg.Frame('CADASTRAR', self._frame_layout)],
@@ -43,15 +44,19 @@ class Cadastro():
                     nome = str(values['-NAME-'])
                     email = str(values['-EMAIL-'])
                     senha = str(values['-PASSWORD-'])
-                    conSenha = str(values['-CONFIRM_PASS-']) 
+                    conSenha = str(values['-CONFIRM_PASS-'])
+                    tipo = str(values['-TYPE_USER-']) 
 
                     allFilled = chk.allFilled(nome,email, senha ,conSenha)
                     if allFilled == True:
                         bd = BaseDedados()
                         if chk.validAll(email, senha, conSenha) == 'Válido':
-                            if chk.inBD(email, senha) == False:    
-                                bd.saveBd(len(bd.bd)+1,email,  nome, 'Administrador', senha)
-                                sg.popup('Cadastrado')
+                            if chk.inBD(email, senha) == 'False':
+                                if tipo in ['Cliente', 'Admin']:    
+                                    bd.saveBd(len(bd.bd)+1,email,  nome, tipo, senha)
+                                    sg.popup('Cadastrado')
+                                else:
+                                    sg.popup('Selecione o tipo de usuário')
                             else:
                                 sg.popup('ERROR Usuario já existe')
                         else:

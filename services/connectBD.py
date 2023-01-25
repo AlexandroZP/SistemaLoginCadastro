@@ -28,7 +28,7 @@ class BaseDedados:
         dados = [str(id),email, nome, typ, senha]
         dados = ';'.join(dados)
         with open('tempBD.txt','a') as BancoDeDados:
-            BancoDeDados.write(f'{dados}\n')
+            BancoDeDados.write(f'{dados};\n')
  
 
 
