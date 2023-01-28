@@ -35,12 +35,13 @@ class TelaDeUsuario:
 
 
     def editar(self, janela):
-        janela['-USER_DATE_ID-'].update(disabled=False)
+
         janela['-USER_DATE_NAME-'].update(disabled=False)
         janela['-USER_DATE_EMAIL-'].update(disabled=False)
+    
 
-
-    def save(self, janela):
-        janela['-USER_DATE_ID-'].update(disabled=True)
+    def save(self, janela,dados):
+        BancoDeDados = BaseDedados()
+        BancoDeDados.edit(dados)
         janela['-USER_DATE_NAME-'].update(disabled=True)
         janela['-USER_DATE_EMAIL-'].update(disabled=True)

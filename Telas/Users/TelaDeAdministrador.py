@@ -24,7 +24,7 @@ class Administrador(TelaDeUsuario):
                 case '-BTN_EDIT-':
                     Administrador.editar(self, self.janela)
                 case '-BTN_SAVE-':
-                    Administrador.save(self, self.janela)  
+                    Administrador.save(self, self.janela, [values['-USER_DATE_ID-'], values['-USER_DATE_NAME-'], values['-USER_DATE_EMAIL-']])  
                 case '-BTN_DELETAR-': 
                     list = self._users
                     bancoDeDados = BaseDedados()

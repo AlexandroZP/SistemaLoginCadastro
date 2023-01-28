@@ -16,7 +16,7 @@ class Cliente(TelaDeUsuario):
                     Cliente.deslogar(self, self.janela)
                     break
                 case '-BTN_EDIT-':
-                    Cliente.editar(self, self.janela)
+                    Cliente.editar(self, self.janela, [values['-USER_DATE_ID-'], values['-USER_DATE_NAME-'], values['-USER_DATE_EMAIL-']])
                 case '-BTN_SAVE-':
                     Cliente.save(self, self.janela)
         

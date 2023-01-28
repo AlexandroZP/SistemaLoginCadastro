@@ -23,6 +23,25 @@ class BaseDedados:
                BancoDeDados.write(bd)
 
 
+    def edit(self, dados):
+        with open('tempBD.txt','r') as BancoDeDados:
+            linhas = BancoDeDados.readlines()
+            for linha in linhas:
+                linha = linha.split(';')
+                if linha[0] == dados[0]:
+                    linha[2] = dados[1]
+                    linha[1] = dados[2]
+                    self.__bd[int(dados[0]) - 1] = linha
+        with open ('tempBD.txt', 'w') as BancoDeDados:
+            BancoDeDados.write('')
+        with open('tempBD.txt','a') as BancoDeDados:
+            for dado in self.__bd:
+                dados = ';'.join(dado)
+                BancoDeDados.write(dados)
+            
+                
+
+
 
     def saveBd(self, id, email, nome, typ, senha):
         dados = [str(id),email, nome, typ, senha]
