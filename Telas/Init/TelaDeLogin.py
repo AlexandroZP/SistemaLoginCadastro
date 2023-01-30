@@ -2,6 +2,7 @@ from PySimpleGUI import PySimpleGUI as sg
 from Telas.Users.toUser import toAdmin, toCliente
 import Telas.Init.funcsLogin as tB
 from services.checking import inBD, searchBd
+
 class Login():   
     def __init__(self):
         self.className = __class__.__name__

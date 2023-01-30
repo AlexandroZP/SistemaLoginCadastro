@@ -1,6 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
 from Telas.Users.TelaDeUsuario import TelaDeUsuario
-from services.connectBD import BaseDedados
+from services.connectBDMySQL import BaseDedados
 
 
 
@@ -27,13 +27,19 @@ class Administrador(TelaDeUsuario):
                     Administrador.save(self, self.janela, [values['-USER_DATE_ID-'], values['-USER_DATE_NAME-'], values['-USER_DATE_EMAIL-']])  
                 case '-BTN_DELETAR-': 
                     list = self._users
+                    list_2 = []
                     bancoDeDados = BaseDedados()
                     removeList = values['-USERS_LIST-'][:]
                     removeList.sort(reverse=True)
                     for index in removeList:
+                        list_2.append(list[index])
                         list.pop(index)
+                    print(list)
+                    list_2.sort(reverse=True)
+                    print(list_2)
+                    bancoDeDados.delete(list_2)
                     self.janela['-USERS_LIST-'].update(values=list)
-                    bancoDeDados.delete(list)
+                    
                     
  
                 

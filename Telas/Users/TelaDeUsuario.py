@@ -1,18 +1,21 @@
 from PySimpleGUI import PySimpleGUI as sg
 import Telas.Init.funcsCadastro as tB
-from services.connectBD import BaseDedados 
+from services.connectBDMySQL import BaseDedados 
 
 class TelaDeUsuario:
     def __init__(self, user):
         self.className = self.__class__.__name__
-        baseDeDados = BaseDedados()
+        lista = BaseDedados().read()
+        baseDeDados = []
+        for item in lista:
+            baseDeDados.append(list(item))
         sg.theme('TanBlue')
         self._col_layout = [[sg.T('#ID'),sg.Input(user[0],key='-USER_DATE_ID-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
                             [sg.T('Nome:'),sg.Input(user[1],key='-USER_DATE_NAME-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
                             [sg.T('Email:'),sg.Input(user[2],key='-USER_DATE_EMAIL-',pad=(5,0),border_width=0,size=(23,0),disabled=True,change_submits=True)],
                             [sg.Button('Editar Perfil', key='-BTN_EDIT-', pad=(5,10)),sg.Push(), sg.Button('Salvar', key='-BTN_SAVE-', pad=(5, 5))]
                             ]
-        self._users = baseDeDados.bd[:4]
+        self._users = baseDeDados
         self.__layout = [
             [sg.Push(), sg.Button('Logoff', key='-BTN_LOGOFF-', button_color='red', enable_events=True)],
             [sg.Frame(self.className, self._col_layout, pad=(0,0), element_justification='left',key='-DATE_FRAME-')],
@@ -35,12 +38,11 @@ class TelaDeUsuario:
 
 
     def editar(self, janela):
-
         janela['-USER_DATE_NAME-'].update(disabled=False)
         janela['-USER_DATE_EMAIL-'].update(disabled=False)
     
 
-    def save(self, janela,dados):
+    def save(self, janela, dados):
         BancoDeDados = BaseDedados()
         BancoDeDados.edit(dados)
         janela['-USER_DATE_NAME-'].update(disabled=True)

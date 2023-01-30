@@ -1,6 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
 import services.checking as chk
-from services.connectBD import BaseDedados
+from services.connectBDMySQL import BaseDedados
 import Telas.Init.funcsCadastro as tB
 
 class Cadastro():
@@ -53,7 +53,7 @@ class Cadastro():
                         if chk.validAll(email, senha, conSenha) == 'Válido':
                             if chk.inBD(email, senha) == 'False':
                                 if tipo in ['Cliente', 'Admin']:    
-                                    bd.saveBd(len(bd.bd)+1,email,  nome, tipo, senha)
+                                    bd.saveBd(email, nome, tipo, senha)
                                     sg.popup('Cadastrado')
                                 else:
                                     sg.popup('Selecione o tipo de usuário')
