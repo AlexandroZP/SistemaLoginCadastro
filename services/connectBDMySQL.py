@@ -1,5 +1,5 @@
 import mysql.connector
-
+from secret import password
 
 class BaseDedados:
 
@@ -8,7 +8,7 @@ class BaseDedados:
         self.conexao = mysql.connector.connect(
             host ='localhost',
             user='root',
-            password='Z@va86489121',
+            password=password,
             database='bdusers'
         )
         self.cursor =  self.conexao.cursor()
