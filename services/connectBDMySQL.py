@@ -1,17 +1,21 @@
 import mysql.connector
 from secret import password
+from PySimpleGUI import PySimpleGUI as sg
 
 class BaseDedados:
 
     def __init__(self):
-        # Criar conexão
-        self.conexao = mysql.connector.connect(
-            host ='localhost',
-            user='root',
-            password=password,
-            database='bdusers'
-        )
-        self.cursor =  self.conexao.cursor()
+        try:
+            # Criar conexão
+            self.conexao = mysql.connector.connect(
+                host ='localhost',
+                user='root',
+                password=password,
+                database='bdusers'
+            )
+            self.cursor =  self.conexao.cursor()
+        except mysql.connector.errors.ProgrammingError:
+            sg.popup('[ERROR]: Não foi possivel conectar o banco de dados')
     
 
     def delete(self, lista):

@@ -3,19 +3,26 @@ from services.connectBDMySQL import BaseDedados
 
 
 def inBD(email, senha):
-        dados = BaseDedados().read() 
-        for dado in dados:
-                if email in dado and senha in dado:
-                        return dado[4]
-        else:
-                return 'False'
+        try:
+                dados = BaseDedados().read() 
+                for dado in dados:
+                        if email in dado and senha in dado:
+                                return dado[4]
+                else:
+                        return 'False'
+        except:
+                return 'Algo deu errado ao buscar no banco de dados'
 
 def searchBd(email):
-        dados = BaseDedados().read()
-        for dado in dados:
-                if email == dado[2]:
-                        return list(dado)      
-        return 'False'
+        try:
+                dados = BaseDedados().read()
+                for dado in dados:
+                        if email == dado[2]:
+                                return list(dado)      
+                else:
+                        return 'False'
+        except:
+                return 'False'
        
         
         

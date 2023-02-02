@@ -33,14 +33,14 @@ class Login():
                     break
                 case '-LOGIN_BUTTON-':
                     check = inBD(values['-EMAIL-'], values['-PASSWORD-']) 
-                    if check != 'False':
+                    if check in ['Admin', 'Cliente']:
                         if check == 'Admin':
                             toAdmin(self.janela, searchBd(values['-EMAIL-']))
                         elif check == 'Cliente':
                             toCliente(self.janela, searchBd(values['-EMAIL-']))
                         break
                     else:
-                        sg.popup('ERROR Usuario não encontrado')
+                        sg.popup(check)
                     
                 
             if values['-SHOW_PASS-']:
