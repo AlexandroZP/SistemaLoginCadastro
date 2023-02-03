@@ -14,7 +14,7 @@ class BaseDedados:
                 database='bdusers'
             )
             self.cursor =  self.conexao.cursor()
-        except mysql.connector.errors.ProgrammingError:
+        except :
             sg.popup('[ERROR]: Não foi possivel conectar o banco de dados')
     
 
@@ -36,8 +36,8 @@ class BaseDedados:
         dados = self.cursor.fetchall() 
         return dados
 
-    def saveBd(self, email, nome, typ, senha):
-        comando = f'INSERT INTO usuarios (nome_usuario, email_usuario, senha_usuario, tipo_usuario) VALUES ("{nome}", "{email}","{senha}","{typ}")'
+    def saveBd(self, id, email, nome, typ, senha):
+        comando = f'INSERT INTO usuarios (idUsuarios, nome_usuario, email_usuario, senha_usuario, tipo_usuario) VALUES ("{id}","{nome}", "{email}","{senha}","{typ}")'
         self.cursor.execute(comando)
         self.conexao.commit() 
  

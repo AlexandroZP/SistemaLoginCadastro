@@ -52,8 +52,9 @@ class Cadastro():
                         bd = BaseDedados()
                         if chk.validAll(email, senha, conSenha) == 'Válido':
                             if chk.inBD(email, senha) == 'False':
-                                if tipo in ['Cliente', 'Admin']:    
-                                    bd.saveBd(email, nome, tipo, senha)
+                                if tipo in ['Cliente', 'Admin']:
+                                    id = tB.genID(len(bd.read()))    
+                                    bd.saveBd(id,email, nome, tipo, senha)
                                     sg.popup('Cadastrado')
                                 else:
                                     sg.popup('Selecione o tipo de usuário')

@@ -33,17 +33,26 @@ class TelaDeUsuario:
 
 
     def deslogar(self, janela):
-        janela.close()
-        tB.toLogin(janela)
+        try:
+            janela.close()
+            tB.toLogin(janela)
+        except:
+            sg.popup('Não foi possivel chegar a tela de login')
 
 
     def editar(self, janela):
-        janela['-USER_DATE_NAME-'].update(disabled=False)
-        janela['-USER_DATE_EMAIL-'].update(disabled=False)
+        try:
+            janela['-USER_DATE_NAME-'].update(disabled=False)
+            janela['-USER_DATE_EMAIL-'].update(disabled=False)
+        except:
+            sg.popup('Janela não encontrada')
     
 
     def save(self, janela, dados):
-        BancoDeDados = BaseDedados()
-        BancoDeDados.edit(dados)
-        janela['-USER_DATE_NAME-'].update(disabled=True)
-        janela['-USER_DATE_EMAIL-'].update(disabled=True)
+        try:
+            BancoDeDados = BaseDedados()
+            BancoDeDados.edit(dados)
+            janela['-USER_DATE_NAME-'].update(disabled=True)
+            janela['-USER_DATE_EMAIL-'].update(disabled=True)
+        except:
+            sg.popup('Janela não encontrada')
